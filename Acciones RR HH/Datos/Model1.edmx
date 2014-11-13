@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RRHHModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="RRHHModelStoreContainer">
+          <EntitySet Name="Cat_ConsumoVaciones" EntityType="RRHHModel.Store.Cat_ConsumoVaciones" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Permisos" EntityType="RRHHModel.Store.Permisos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Reg_entrada_salida" EntityType="RRHHModel.Store.Reg_entrada_salida" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Vac_con" EntityType="RRHHModel.Store.Vac_con" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Vacaciones_Acumuladas" EntityType="RRHHModel.Store.Vacaciones_Acumuladas" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Vac_con_Cat_ConsumoVaciones" Association="RRHHModel.Store.FK_Vac_con_Cat_ConsumoVaciones">
+            <End Role="Cat_ConsumoVaciones" EntitySet="Cat_ConsumoVaciones" />
+            <End Role="Vac_con" EntitySet="Vac_con" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cat_ConsumoVaciones">
+          <Key>
+            <PropertyRef Name="IdConsumoVaciones" />
+          </Key>
+          <Property Name="IdConsumoVaciones" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Descripción" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Permisos">
+          <Key>
+            <PropertyRef Name="IdPermiso" />
+          </Key>
+          <Property Name="IdPermiso" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleado" Type="varchar" MaxLength="50" />
+          <Property Name="FechaIni" Type="date" />
+          <Property Name="FechaFin" Type="date" />
+          <Property Name="Comprobante" Type="image" />
+        </EntityType>
+        <EntityType Name="Reg_entrada_salida">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IDEmpleado" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Entrada" Type="date" />
+          <Property Name="Salida" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vac_con">
+          <Key>
+            <PropertyRef Name="IdVC" />
+          </Key>
+          <Property Name="IdVC" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleado" Type="varchar" MaxLength="50" />
+          <Property Name="DiasConsumidos" Type="float" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="idConsumovaciones" Type="int" />
+        </EntityType>
+        <EntityType Name="Vacaciones_Acumuladas">
+          <Key>
+            <PropertyRef Name="Id_Va" />
+          </Key>
+          <Property Name="Id_Va" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleado" Type="varchar" MaxLength="50" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Dias" Type="float" />
+          <Property Name="Pagadas" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Vac_con_Cat_ConsumoVaciones">
+          <End Role="Cat_ConsumoVaciones" Type="RRHHModel.Store.Cat_ConsumoVaciones" Multiplicity="0..1" />
+          <End Role="Vac_con" Type="RRHHModel.Store.Vac_con" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cat_ConsumoVaciones">
+              <PropertyRef Name="IdConsumoVaciones" />
+            </Principal>
+            <Dependent Role="Vac_con">
+              <PropertyRef Name="idConsumovaciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RRHHModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SISTEMAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cat_ConsumoVaciones" EntityType="RRHHModel.Cat_ConsumoVaciones" />
+          <EntitySet Name="Permisos" EntityType="RRHHModel.Permisos" />
+          <EntitySet Name="Reg_entrada_salida" EntityType="RRHHModel.Reg_entrada_salida" />
+          <EntitySet Name="Vac_con" EntityType="RRHHModel.Vac_con" />
+          <EntitySet Name="Vacaciones_Acumuladas" EntityType="RRHHModel.Vacaciones_Acumuladas" />
+          <AssociationSet Name="FK_Vac_con_Cat_ConsumoVaciones" Association="RRHHModel.FK_Vac_con_Cat_ConsumoVaciones">
+            <End Role="Cat_ConsumoVaciones" EntitySet="Cat_ConsumoVaciones" />
+            <End Role="Vac_con" EntitySet="Vac_con" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cat_ConsumoVaciones">
+          <Key>
+            <PropertyRef Name="IdConsumoVaciones" />
+          </Key>
+          <Property Name="IdConsumoVaciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Descripción" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Vac_con" Relationship="RRHHModel.FK_Vac_con_Cat_ConsumoVaciones" FromRole="Cat_ConsumoVaciones" ToRole="Vac_con" />
+        </EntityType>
+        <EntityType Name="Permisos">
+          <Key>
+            <PropertyRef Name="IdPermiso" />
+          </Key>
+          <Property Name="IdPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleado" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FechaIni" Type="DateTime" />
+          <Property Name="FechaFin" Type="DateTime" />
+          <Property Name="Comprobante" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Reg_entrada_salida">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEmpleado" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Entrada" Type="DateTime" />
+          <Property Name="Salida" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vac_con">
+          <Key>
+            <PropertyRef Name="IdVC" />
+          </Key>
+          <Property Name="IdVC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleado" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DiasConsumidos" Type="Double" />
+          <Property Name="Fecha" Type="DateTime" />
+          <Property Name="idConsumovaciones" Type="Int32" />
+          <NavigationProperty Name="Cat_ConsumoVaciones" Relationship="RRHHModel.FK_Vac_con_Cat_ConsumoVaciones" FromRole="Vac_con" ToRole="Cat_ConsumoVaciones" />
+        </EntityType>
+        <EntityType Name="Vacaciones_Acumuladas">
+          <Key>
+            <PropertyRef Name="Id_Va" />
+          </Key>
+          <Property Name="Id_Va" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleado" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Fecha" Type="DateTime" />
+          <Property Name="Dias" Type="Double" />
+          <Property Name="Pagadas" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Vac_con_Cat_ConsumoVaciones">
+          <End Role="Cat_ConsumoVaciones" Type="RRHHModel.Cat_ConsumoVaciones" Multiplicity="0..1" />
+          <End Role="Vac_con" Type="RRHHModel.Vac_con" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cat_ConsumoVaciones">
+              <PropertyRef Name="IdConsumoVaciones" />
+            </Principal>
+            <Dependent Role="Vac_con">
+              <PropertyRef Name="idConsumovaciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RRHHModelStoreContainer" CdmEntityContainer="SISTEMAEntities">
+          <EntitySetMapping Name="Cat_ConsumoVaciones">
+            <EntityTypeMapping TypeName="RRHHModel.Cat_ConsumoVaciones">
+              <MappingFragment StoreEntitySet="Cat_ConsumoVaciones">
+                <ScalarProperty Name="IdConsumoVaciones" ColumnName="IdConsumoVaciones" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permisos">
+            <EntityTypeMapping TypeName="RRHHModel.Permisos">
+              <MappingFragment StoreEntitySet="Permisos">
+                <ScalarProperty Name="IdPermiso" ColumnName="IdPermiso" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="FechaIni" ColumnName="FechaIni" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="Comprobante" ColumnName="Comprobante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reg_entrada_salida">
+            <EntityTypeMapping TypeName="RRHHModel.Reg_entrada_salida">
+              <MappingFragment StoreEntitySet="Reg_entrada_salida">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IDEmpleado" ColumnName="IDEmpleado" />
+                <ScalarProperty Name="Entrada" ColumnName="Entrada" />
+                <ScalarProperty Name="Salida" ColumnName="Salida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vac_con">
+            <EntityTypeMapping TypeName="RRHHModel.Vac_con">
+              <MappingFragment StoreEntitySet="Vac_con">
+                <ScalarProperty Name="IdVC" ColumnName="IdVC" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="DiasConsumidos" ColumnName="DiasConsumidos" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="idConsumovaciones" ColumnName="idConsumovaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vacaciones_Acumuladas">
+            <EntityTypeMapping TypeName="RRHHModel.Vacaciones_Acumuladas">
+              <MappingFragment StoreEntitySet="Vacaciones_Acumuladas">
+                <ScalarProperty Name="Id_Va" ColumnName="Id_Va" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Dias" ColumnName="Dias" />
+                <ScalarProperty Name="Pagadas" ColumnName="Pagadas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="RRHHModel.Cat_ConsumoVaciones" Width="1.5" PointX="0.75" PointY="1.125" Height="1.7879850260416672" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.Permisos" Width="1.5" PointX="0.75" PointY="4.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.Reg_entrada_salida" Width="1.5" PointX="2.75" PointY="4.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.Vac_con" Width="1.5" PointX="3" PointY="0.875" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="RRHHModel.Vacaciones_Acumuladas" Width="1.5" PointX="4.75" PointY="4.75" Height="1.9802864583333317" IsExpanded="true" />
+        <AssociationConnector Association="RRHHModel.FK_Vac_con_Cat_ConsumoVaciones" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.0189925130208337" />
+          <ConnectorPoint PointX="3" PointY="2.0189925130208337" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
