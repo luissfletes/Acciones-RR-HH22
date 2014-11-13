@@ -32,6 +32,7 @@
             this.controlDePermisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlDePagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.entradasSalidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +41,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.controlDePermisosToolStripMenuItem,
             this.controlDePagosToolStripMenuItem,
-            this.consultasToolStripMenuItem});
+            this.consultasToolStripMenuItem,
+            this.entradasSalidasToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(520, 24);
@@ -66,6 +68,13 @@
             this.consultasToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.consultasToolStripMenuItem.Text = "Consultas";
             // 
+            // entradasSalidasToolStripMenuItem
+            // 
+            this.entradasSalidasToolStripMenuItem.Name = "entradasSalidasToolStripMenuItem";
+            this.entradasSalidasToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.entradasSalidasToolStripMenuItem.Text = "Entradas-Salidas";
+            this.entradasSalidasToolStripMenuItem.Click += new System.EventHandler(this.entradasSalidasToolStripMenuItem_Click);
+            // 
             // MDI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -90,6 +99,7 @@
         private System.Windows.Forms.ToolStripMenuItem controlDePermisosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem controlDePagosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem entradasSalidasToolStripMenuItem;
     }
 }
 
