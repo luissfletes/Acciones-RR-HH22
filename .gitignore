@@ -17,6 +17,11 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+
+# personal Ignore #
+###################
+Acciones%20RR%20HH/App.config
+
 [Bb]in
 [Dd]ebug*/
 *.lib
