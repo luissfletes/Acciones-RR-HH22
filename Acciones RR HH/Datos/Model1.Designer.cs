@@ -20,6 +20,10 @@ using System.Xml.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("RRHHModel", "FK_Vac_con_Cat_ConsumoVaciones", "Cat_ConsumoVaciones", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Acciones_RR_HH.Datos.Cat_ConsumoVaciones), "Vac_con", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Acciones_RR_HH.Datos.Vac_con), true)]
+[assembly: EdmRelationshipAttribute("RRHHModel", "FK_Permisos_Empleados", "Empleados", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Acciones_RR_HH.Datos.Empleados), "Permisos", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Acciones_RR_HH.Datos.Permisos), true)]
+[assembly: EdmRelationshipAttribute("RRHHModel", "FK_Reg_entrada_salida_Empleados", "Empleados", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Acciones_RR_HH.Datos.Empleados), "Reg_entrada_salida", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Acciones_RR_HH.Datos.Reg_entrada_salida), true)]
+[assembly: EdmRelationshipAttribute("RRHHModel", "FK_Vac_con_Empleados", "Empleados", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Acciones_RR_HH.Datos.Empleados), "Vac_con", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Acciones_RR_HH.Datos.Vac_con), true)]
+[assembly: EdmRelationshipAttribute("RRHHModel", "FK_Vacaciones_Acumuladas_Empleados", "Empleados", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Acciones_RR_HH.Datos.Empleados), "Vacaciones_Acumuladas", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Acciones_RR_HH.Datos.Vacaciones_Acumuladas), true)]
 
 #endregion
 
@@ -150,6 +154,22 @@ namespace Acciones_RR_HH.Datos
             }
         }
         private ObjectSet<Vacaciones_Acumuladas> _Vacaciones_Acumuladas;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Empleados> Empleados
+        {
+            get
+            {
+                if ((_Empleados == null))
+                {
+                    _Empleados = base.CreateObjectSet<Empleados>("Empleados");
+                }
+                return _Empleados;
+            }
+        }
+        private ObjectSet<Empleados> _Empleados;
 
         #endregion
 
@@ -193,6 +213,14 @@ namespace Acciones_RR_HH.Datos
         public void AddToVacaciones_Acumuladas(Vacaciones_Acumuladas vacaciones_Acumuladas)
         {
             base.AddObject("Vacaciones_Acumuladas", vacaciones_Acumuladas);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Empleados EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEmpleados(Empleados empleados)
+        {
+            base.AddObject("Empleados", empleados);
         }
 
         #endregion
@@ -326,6 +354,309 @@ namespace Acciones_RR_HH.Datos
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Vac_con>("RRHHModel.FK_Vac_con_Cat_ConsumoVaciones", "Vac_con", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="RRHHModel", Name="Empleados")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Empleados : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Empleados object.
+        /// </summary>
+        /// <param name="iDEmpleado">Initial value of the IDEmpleado property.</param>
+        /// <param name="nombres">Initial value of the Nombres property.</param>
+        /// <param name="apellidos">Initial value of the Apellidos property.</param>
+        /// <param name="edad">Initial value of the Edad property.</param>
+        /// <param name="sexo">Initial value of the Sexo property.</param>
+        /// <param name="estadoCivil">Initial value of the EstadoCivil property.</param>
+        public static Empleados CreateEmpleados(global::System.String iDEmpleado, global::System.String nombres, global::System.String apellidos, global::System.String edad, global::System.Boolean sexo, global::System.Int32 estadoCivil)
+        {
+            Empleados empleados = new Empleados();
+            empleados.IDEmpleado = iDEmpleado;
+            empleados.Nombres = nombres;
+            empleados.Apellidos = apellidos;
+            empleados.Edad = edad;
+            empleados.Sexo = sexo;
+            empleados.EstadoCivil = estadoCivil;
+            return empleados;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String IDEmpleado
+        {
+            get
+            {
+                return _IDEmpleado;
+            }
+            set
+            {
+                if (_IDEmpleado != value)
+                {
+                    OnIDEmpleadoChanging(value);
+                    ReportPropertyChanging("IDEmpleado");
+                    _IDEmpleado = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("IDEmpleado");
+                    OnIDEmpleadoChanged();
+                }
+            }
+        }
+        private global::System.String _IDEmpleado;
+        partial void OnIDEmpleadoChanging(global::System.String value);
+        partial void OnIDEmpleadoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> IdDocumentos
+        {
+            get
+            {
+                return _IdDocumentos;
+            }
+            set
+            {
+                OnIdDocumentosChanging(value);
+                ReportPropertyChanging("IdDocumentos");
+                _IdDocumentos = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IdDocumentos");
+                OnIdDocumentosChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _IdDocumentos;
+        partial void OnIdDocumentosChanging(Nullable<global::System.Int32> value);
+        partial void OnIdDocumentosChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Nombres
+        {
+            get
+            {
+                return _Nombres;
+            }
+            set
+            {
+                OnNombresChanging(value);
+                ReportPropertyChanging("Nombres");
+                _Nombres = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Nombres");
+                OnNombresChanged();
+            }
+        }
+        private global::System.String _Nombres;
+        partial void OnNombresChanging(global::System.String value);
+        partial void OnNombresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Apellidos
+        {
+            get
+            {
+                return _Apellidos;
+            }
+            set
+            {
+                OnApellidosChanging(value);
+                ReportPropertyChanging("Apellidos");
+                _Apellidos = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Apellidos");
+                OnApellidosChanged();
+            }
+        }
+        private global::System.String _Apellidos;
+        partial void OnApellidosChanging(global::System.String value);
+        partial void OnApellidosChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Edad
+        {
+            get
+            {
+                return _Edad;
+            }
+            set
+            {
+                OnEdadChanging(value);
+                ReportPropertyChanging("Edad");
+                _Edad = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Edad");
+                OnEdadChanged();
+            }
+        }
+        private global::System.String _Edad;
+        partial void OnEdadChanging(global::System.String value);
+        partial void OnEdadChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Sexo
+        {
+            get
+            {
+                return _Sexo;
+            }
+            set
+            {
+                OnSexoChanging(value);
+                ReportPropertyChanging("Sexo");
+                _Sexo = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Sexo");
+                OnSexoChanged();
+            }
+        }
+        private global::System.Boolean _Sexo;
+        partial void OnSexoChanging(global::System.Boolean value);
+        partial void OnSexoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 EstadoCivil
+        {
+            get
+            {
+                return _EstadoCivil;
+            }
+            set
+            {
+                OnEstadoCivilChanging(value);
+                ReportPropertyChanging("EstadoCivil");
+                _EstadoCivil = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EstadoCivil");
+                OnEstadoCivilChanged();
+            }
+        }
+        private global::System.Int32 _EstadoCivil;
+        partial void OnEstadoCivilChanging(global::System.Int32 value);
+        partial void OnEstadoCivilChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Permisos_Empleados", "Permisos")]
+        public EntityCollection<Permisos> Permisos
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Permisos>("RRHHModel.FK_Permisos_Empleados", "Permisos");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Permisos>("RRHHModel.FK_Permisos_Empleados", "Permisos", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Reg_entrada_salida_Empleados", "Reg_entrada_salida")]
+        public EntityCollection<Reg_entrada_salida> Reg_entrada_salida
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Reg_entrada_salida>("RRHHModel.FK_Reg_entrada_salida_Empleados", "Reg_entrada_salida");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Reg_entrada_salida>("RRHHModel.FK_Reg_entrada_salida_Empleados", "Reg_entrada_salida", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Vac_con_Empleados", "Vac_con")]
+        public EntityCollection<Vac_con> Vac_con
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Vac_con>("RRHHModel.FK_Vac_con_Empleados", "Vac_con");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Vac_con>("RRHHModel.FK_Vac_con_Empleados", "Vac_con", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Vacaciones_Acumuladas_Empleados", "Vacaciones_Acumuladas")]
+        public EntityCollection<Vacaciones_Acumuladas> Vacaciones_Acumuladas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Vacaciones_Acumuladas>("RRHHModel.FK_Vacaciones_Acumuladas_Empleados", "Vacaciones_Acumuladas");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Vacaciones_Acumuladas>("RRHHModel.FK_Vacaciones_Acumuladas_Empleados", "Vacaciones_Acumuladas", value);
                 }
             }
         }
@@ -485,6 +816,48 @@ namespace Acciones_RR_HH.Datos
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Permisos_Empleados", "Empleados")]
+        public Empleados Empleados
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Permisos_Empleados", "Empleados").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Permisos_Empleados", "Empleados").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Empleados> EmpleadosReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Permisos_Empleados", "Empleados");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Empleados>("RRHHModel.FK_Permisos_Empleados", "Empleados", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -618,6 +991,48 @@ namespace Acciones_RR_HH.Datos
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Reg_entrada_salida_Empleados", "Empleados")]
+        public Empleados Empleados
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Reg_entrada_salida_Empleados", "Empleados").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Reg_entrada_salida_Empleados", "Empleados").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Empleados> EmpleadosReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Reg_entrada_salida_Empleados", "Empleados");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Empleados>("RRHHModel.FK_Reg_entrada_salida_Empleados", "Empleados", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -810,6 +1225,44 @@ namespace Acciones_RR_HH.Datos
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Vac_con_Empleados", "Empleados")]
+        public Empleados Empleados
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Vac_con_Empleados", "Empleados").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Vac_con_Empleados", "Empleados").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Empleados> EmpleadosReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Vac_con_Empleados", "Empleados");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Empleados>("RRHHModel.FK_Vac_con_Empleados", "Empleados", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -966,6 +1419,48 @@ namespace Acciones_RR_HH.Datos
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RRHHModel", "FK_Vacaciones_Acumuladas_Empleados", "Empleados")]
+        public Empleados Empleados
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Vacaciones_Acumuladas_Empleados", "Empleados").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Vacaciones_Acumuladas_Empleados", "Empleados").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Empleados> EmpleadosReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empleados>("RRHHModel.FK_Vacaciones_Acumuladas_Empleados", "Empleados");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Empleados>("RRHHModel.FK_Vacaciones_Acumuladas_Empleados", "Empleados", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
 
     #endregion

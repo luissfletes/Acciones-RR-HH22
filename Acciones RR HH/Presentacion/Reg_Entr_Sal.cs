@@ -13,40 +13,54 @@ namespace Acciones_RR_HH.Presentacion
     public partial class Reg_Entr_Sal : Form
     {
         private int id;
+        private List<Reg_entrada_salida> entSalList;
+
         public Reg_Entr_Sal()
         {
             InitializeComponent();
+            regEntSalGD.Columns.Add("ID", "ID");
+            regEntSalGD.Columns.Add("ID Empleado", "ID Empleado");
+            regEntSalGD.Columns.Add("Nombre Empleado", "Nombre Empleado");
+            regEntSalGD.Columns.Add("Fecha de Entrada","Fecha de Entrada");
+            regEntSalGD.Columns.Add("Fecha de Salida","Fecha de Salida");
             loadRegySal();
+            
         }
 
         private void loadRegySal() {
-            using (SISTEMAEntities context = new SISTEMAEntities()) { 
-                IQueryable<Reg_entrada_salida> entSalRegs = from q in context.Reg_entrada_salida select q;
-                List<Reg_entrada_salida> entSalList = entSalRegs.ToList();
-                //nombre data grid . source = lista de regs
-                regEntSalGD.DataSource = entSalList;
+            using (SISTEMAEntities context = new SISTEMAEntities()) {
+                IQueryable<Reg_entrada_salida> entSalRegs = from entsal in context.Reg_entrada_salida.Include("Empleados") select entsal;
+                entSalList = entSalRegs.ToList();
+                DataTable dt = new DataTable();
+                Reg_entrada_salida prueba = entSalList.Find(reg => reg.id == 1);
+                
+                foreach (var row in entSalList)
+                {
+                    object[] fila = new object[] { row.id, row.IDEmpleado, row.Empleados.Nombres+" "+ row.Empleados.Apellidos, row.Entrada, row.Salida };
+                    regEntSalGD.Rows.Add(fila);
+                }
+                //from empleado in context.Empleados
+                //join entsal in context.Reg_entrada_salida on empleado.IDEmpleado equals entsal.IDEmpleado into regs
+                //from regsalempleado in regs
+                //select regsalempleado;
+                //
             }
         }
 
         private void regEntSalGD_SelectionChanged(object sender, EventArgs e)
         {
-            /*foreach (DataGridViewRow row in regEntSalGD.SelectedRows) {
-                id = Convert.ToInt32(row.Cells[1].Value.ToString());  //idTrans
-            }*/
-
             if (regEntSalGD.SelectedRows.Count != 0) {
                 using (SISTEMAEntities context = new SISTEMAEntities())
                 {
                     DataGridViewRow row = regEntSalGD.SelectedRows[0];
                     id = Convert.ToInt32(row.Cells[0].Value.ToString());
-                    IQueryable<Reg_entrada_salida> entSalRegs = from q in context.Reg_entrada_salida where q.id == id select q;
-                    List<Reg_entrada_salida> entSalList = entSalRegs.ToList();
 
-                    var actReg = entSalList[0];
+                    var actReg = entSalList.Find(reg => reg.id == id);
                     regDateEnt.Format = DateTimePickerFormat.Long;
                     regDateSal.Format = DateTimePickerFormat.Long;
                     regId.Text = Convert.ToString(actReg.id);
                     regIdEmp.Text = actReg.IDEmpleado;
+                    regEmpNom.Text = actReg.Empleados.Nombres + " " + actReg.Empleados.Apellidos;
                     if (actReg.Entrada != null)
                     {
                         regDateEnt.Value = (DateTime)actReg.Entrada;
@@ -138,12 +152,52 @@ namespace Acciones_RR_HH.Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            actualizar();
+            DialogResult res = MessageBox.Show("¿Desea actualizar este registro?", "Confirmacion", MessageBoxButtons.YesNo);
+            if (res == DialogResult.Yes)
+                actualizar();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            borrar();
+            DialogResult res = MessageBox.Show("¿Desea borrar este registro?", "Confirmacion", MessageBoxButtons.YesNo);
+            if ( res == DialogResult.Yes )
+                borrar();
+        }
+
+        private void filterTxt_TextChanged(object sender, EventArgs e)
+        {
+            if (filterTxt.Text.Length != 0)
+            {
+                foreach (DataGridViewRow row in regEntSalGD.Rows)
+                {
+
+                    for (int i = 0; i < row.Cells.Count; i++) {
+                        string s = row.Cells[i].Value.ToString();
+                        if (i == 0)
+                        {
+                            if (!s.StartsWith(filterTxt.Text, true, null))
+                                row.Visible = false;
+                            else
+                                row.Visible = true;
+                        }
+                        else {
+                            if (!row.Visible) {
+                                if (!s.StartsWith(filterTxt.Text, true, null))
+                                    row.Visible = false;
+                                else
+                                    row.Visible = true;
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+            else {
+                foreach (DataGridViewRow row in regEntSalGD.Rows) {
+                    row.Visible = true;
+                }
+            }
         }
 
     }

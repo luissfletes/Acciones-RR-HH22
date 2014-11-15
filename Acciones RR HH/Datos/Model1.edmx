@@ -4,16 +4,33 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RRHHModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="RRHHModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="RRHHModelStoreContainer">
           <EntitySet Name="Cat_ConsumoVaciones" EntityType="RRHHModel.Store.Cat_ConsumoVaciones" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Empleados" EntityType="RRHHModel.Store.Empleados" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Permisos" EntityType="RRHHModel.Store.Permisos" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Reg_entrada_salida" EntityType="RRHHModel.Store.Reg_entrada_salida" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Vac_con" EntityType="RRHHModel.Store.Vac_con" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Vacaciones_Acumuladas" EntityType="RRHHModel.Store.Vacaciones_Acumuladas" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Permisos_Empleados" Association="RRHHModel.Store.FK_Permisos_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reg_entrada_salida_Empleados" Association="RRHHModel.Store.FK_Reg_entrada_salida_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Reg_entrada_salida" EntitySet="Reg_entrada_salida" />
+          </AssociationSet>
           <AssociationSet Name="FK_Vac_con_Cat_ConsumoVaciones" Association="RRHHModel.Store.FK_Vac_con_Cat_ConsumoVaciones">
             <End Role="Cat_ConsumoVaciones" EntitySet="Cat_ConsumoVaciones" />
             <End Role="Vac_con" EntitySet="Vac_con" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vac_con_Empleados" Association="RRHHModel.Store.FK_Vac_con_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Vac_con" EntitySet="Vac_con" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vacaciones_Acumuladas_Empleados" Association="RRHHModel.Store.FK_Vacaciones_Acumuladas_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Vacaciones_Acumuladas" EntitySet="Vacaciones_Acumuladas" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cat_ConsumoVaciones">
@@ -23,6 +40,18 @@
           <Property Name="IdConsumoVaciones" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
           <Property Name="Descripción" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="IDEmpleado" />
+          </Key>
+          <Property Name="IDEmpleado" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="IdDocumentos" Type="int" />
+          <Property Name="Nombres" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Apellidos" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Edad" Type="varchar" Nullable="false" MaxLength="2" />
+          <Property Name="Sexo" Type="bit" Nullable="false" />
+          <Property Name="EstadoCivil" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Permisos">
           <Key>
@@ -63,6 +92,30 @@
           <Property Name="Dias" Type="float" />
           <Property Name="Pagadas" Type="bit" />
         </EntityType>
+        <Association Name="FK_Permisos_Empleados">
+          <End Role="Empleados" Type="RRHHModel.Store.Empleados" Multiplicity="0..1" />
+          <End Role="Permisos" Type="RRHHModel.Store.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reg_entrada_salida_Empleados">
+          <End Role="Empleados" Type="RRHHModel.Store.Empleados" Multiplicity="1" />
+          <End Role="Reg_entrada_salida" Type="RRHHModel.Store.Reg_entrada_salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Reg_entrada_salida">
+              <PropertyRef Name="IDEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Vac_con_Cat_ConsumoVaciones">
           <End Role="Cat_ConsumoVaciones" Type="RRHHModel.Store.Cat_ConsumoVaciones" Multiplicity="0..1" />
           <End Role="Vac_con" Type="RRHHModel.Store.Vac_con" Multiplicity="*" />
@@ -75,8 +128,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <Association Name="FK_Vac_con_Empleados">
+          <End Role="Empleados" Type="RRHHModel.Store.Empleados" Multiplicity="0..1" />
+          <End Role="Vac_con" Type="RRHHModel.Store.Vac_con" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Vac_con">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vacaciones_Acumuladas_Empleados">
+          <End Role="Empleados" Type="RRHHModel.Store.Empleados" Multiplicity="0..1" />
+          <End Role="Vacaciones_Acumuladas" Type="RRHHModel.Store.Vacaciones_Acumuladas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Vacaciones_Acumuladas">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RRHHModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -89,6 +165,23 @@
           <AssociationSet Name="FK_Vac_con_Cat_ConsumoVaciones" Association="RRHHModel.FK_Vac_con_Cat_ConsumoVaciones">
             <End Role="Cat_ConsumoVaciones" EntitySet="Cat_ConsumoVaciones" />
             <End Role="Vac_con" EntitySet="Vac_con" />
+          </AssociationSet>
+          <EntitySet Name="Empleados" EntityType="RRHHModel.Empleados" />
+          <AssociationSet Name="FK_Permisos_Empleados" Association="RRHHModel.FK_Permisos_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reg_entrada_salida_Empleados" Association="RRHHModel.FK_Reg_entrada_salida_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Reg_entrada_salida" EntitySet="Reg_entrada_salida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vac_con_Empleados" Association="RRHHModel.FK_Vac_con_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Vac_con" EntitySet="Vac_con" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vacaciones_Acumuladas_Empleados" Association="RRHHModel.FK_Vacaciones_Acumuladas_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Vacaciones_Acumuladas" EntitySet="Vacaciones_Acumuladas" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cat_ConsumoVaciones">
@@ -109,6 +202,7 @@
           <Property Name="FechaIni" Type="DateTime" />
           <Property Name="FechaFin" Type="DateTime" />
           <Property Name="Comprobante" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Empleados" Relationship="RRHHModel.FK_Permisos_Empleados" FromRole="Permisos" ToRole="Empleados" />
         </EntityType>
         <EntityType Name="Reg_entrada_salida">
           <Key>
@@ -118,6 +212,7 @@
           <Property Name="IDEmpleado" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Entrada" Type="DateTime" />
           <Property Name="Salida" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="RRHHModel.FK_Reg_entrada_salida_Empleados" FromRole="Reg_entrada_salida" ToRole="Empleados" />
         </EntityType>
         <EntityType Name="Vac_con">
           <Key>
@@ -129,6 +224,7 @@
           <Property Name="Fecha" Type="DateTime" />
           <Property Name="idConsumovaciones" Type="Int32" />
           <NavigationProperty Name="Cat_ConsumoVaciones" Relationship="RRHHModel.FK_Vac_con_Cat_ConsumoVaciones" FromRole="Vac_con" ToRole="Cat_ConsumoVaciones" />
+          <NavigationProperty Name="Empleados" Relationship="RRHHModel.FK_Vac_con_Empleados" FromRole="Vac_con" ToRole="Empleados" />
         </EntityType>
         <EntityType Name="Vacaciones_Acumuladas">
           <Key>
@@ -139,6 +235,7 @@
           <Property Name="Fecha" Type="DateTime" />
           <Property Name="Dias" Type="Double" />
           <Property Name="Pagadas" Type="Boolean" />
+          <NavigationProperty Name="Empleados" Relationship="RRHHModel.FK_Vacaciones_Acumuladas_Empleados" FromRole="Vacaciones_Acumuladas" ToRole="Empleados" />
         </EntityType>
         <Association Name="FK_Vac_con_Cat_ConsumoVaciones">
           <End Role="Cat_ConsumoVaciones" Type="RRHHModel.Cat_ConsumoVaciones" Multiplicity="0..1" />
@@ -149,6 +246,70 @@
             </Principal>
             <Dependent Role="Vac_con">
               <PropertyRef Name="idConsumovaciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="IDEmpleado" />
+          </Key>
+          <Property Type="String" Name="IDEmpleado" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdDocumentos" />
+          <Property Type="String" Name="Nombres" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Apellidos" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Edad" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Sexo" Nullable="false" />
+          <Property Type="Int32" Name="EstadoCivil" Nullable="false" />
+          <NavigationProperty Name="Permisos" Relationship="RRHHModel.FK_Permisos_Empleados" FromRole="Empleados" ToRole="Permisos" />
+          <NavigationProperty Name="Reg_entrada_salida" Relationship="RRHHModel.FK_Reg_entrada_salida_Empleados" FromRole="Empleados" ToRole="Reg_entrada_salida" />
+          <NavigationProperty Name="Vac_con" Relationship="RRHHModel.FK_Vac_con_Empleados" FromRole="Empleados" ToRole="Vac_con" />
+          <NavigationProperty Name="Vacaciones_Acumuladas" Relationship="RRHHModel.FK_Vacaciones_Acumuladas_Empleados" FromRole="Empleados" ToRole="Vacaciones_Acumuladas" />
+        </EntityType>
+        <Association Name="FK_Permisos_Empleados">
+          <End Type="RRHHModel.Empleados" Role="Empleados" Multiplicity="0..1" />
+          <End Type="RRHHModel.Permisos" Role="Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reg_entrada_salida_Empleados">
+          <End Type="RRHHModel.Empleados" Role="Empleados" Multiplicity="1" />
+          <End Type="RRHHModel.Reg_entrada_salida" Role="Reg_entrada_salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Reg_entrada_salida">
+              <PropertyRef Name="IDEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vac_con_Empleados">
+          <End Type="RRHHModel.Empleados" Role="Empleados" Multiplicity="0..1" />
+          <End Type="RRHHModel.Vac_con" Role="Vac_con" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Vac_con">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vacaciones_Acumuladas_Empleados">
+          <End Type="RRHHModel.Empleados" Role="Empleados" Multiplicity="0..1" />
+          <End Type="RRHHModel.Vacaciones_Acumuladas" Role="Vacaciones_Acumuladas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IDEmpleado" />
+            </Principal>
+            <Dependent Role="Vacaciones_Acumuladas">
+              <PropertyRef Name="IdEmpleado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -210,6 +371,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="RRHHModel.Empleados">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="EstadoCivil" ColumnName="EstadoCivil" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="IdDocumentos" ColumnName="IdDocumentos" />
+                <ScalarProperty Name="IDEmpleado" ColumnName="IDEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -239,6 +413,25 @@
         <AssociationConnector Association="RRHHModel.FK_Vac_con_Cat_ConsumoVaciones" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.0189925130208337" />
           <ConnectorPoint PointX="3" PointY="2.0189925130208337" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="RRHHModel.Empleados" Width="1.5" PointX="6.75" PointY="2.25" Height="3.1340950520833317" />
+        <AssociationConnector Association="RRHHModel.FK_Permisos_Empleados" >
+          <ConnectorPoint PointX="6.75" PointY="3.8170475260416659" />
+          <ConnectorPoint PointX="1.5" PointY="3.8170475260416659" />
+          <ConnectorPoint PointX="1.5" PointY="4.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="RRHHModel.FK_Reg_entrada_salida_Empleados" >
+          <ConnectorPoint PointX="6.75" PointY="4.3147757630208332" />
+          <ConnectorPoint PointX="2.84375" PointY="4.3147757630208332" />
+          <ConnectorPoint PointX="2.84375" PointY="4.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="RRHHModel.FK_Vac_con_Empleados" >
+          <ConnectorPoint PointX="6.75" PointY="2.7449446614583328" />
+          <ConnectorPoint PointX="4.5" PointY="2.7449446614583328" />
+        </AssociationConnector>
+        <AssociationConnector Association="RRHHModel.FK_Vacaciones_Acumuladas_Empleados" >
+          <ConnectorPoint PointX="6.75" PointY="5.0670475260416659" />
+          <ConnectorPoint PointX="6.25" PointY="5.0670475260416659" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
