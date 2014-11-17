@@ -24,14 +24,12 @@ namespace Acciones_RR_HH.Presentacion
             regEntSalGD.Columns.Add("Fecha de Entrada","Fecha de Entrada");
             regEntSalGD.Columns.Add("Fecha de Salida","Fecha de Salida");
             loadRegySal();
-            
         }
 
         private void loadRegySal() {
             using (SISTEMAEntities context = new SISTEMAEntities()) {
                 IQueryable<Reg_entrada_salida> entSalRegs = from entsal in context.Reg_entrada_salida.Include("Empleados") select entsal;
                 entSalList = entSalRegs.ToList();
-                DataTable dt = new DataTable();
                 Reg_entrada_salida prueba = entSalList.Find(reg => reg.id == 1);
                 
                 foreach (var row in entSalList)
@@ -39,6 +37,8 @@ namespace Acciones_RR_HH.Presentacion
                     object[] fila = new object[] { row.id, row.IDEmpleado, row.Empleados.Nombres+" "+ row.Empleados.Apellidos, row.Entrada, row.Salida };
                     regEntSalGD.Rows.Add(fila);
                 }
+
+                if (regEntSalGD.RowCount != 0) regEntSalGD.Rows[0].Selected = true;
                 //from empleado in context.Empleados
                 //join entsal in context.Reg_entrada_salida on empleado.IDEmpleado equals entsal.IDEmpleado into regs
                 //from regsalempleado in regs

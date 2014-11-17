@@ -70,7 +70,7 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IDEmpleado" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Entrada" Type="date" />
-          <Property Name="Salida" Type="date" Nullable="false" />
+          <Property Name="Salida" Type="date" />
         </EntityType>
         <EntityType Name="Vac_con">
           <Key>
@@ -211,7 +211,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDEmpleado" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Entrada" Type="DateTime" />
-          <Property Name="Salida" Type="DateTime" Nullable="false" />
+          <Property Name="Salida" Type="DateTime" />
           <NavigationProperty Name="Empleados" Relationship="RRHHModel.FK_Reg_entrada_salida_Empleados" FromRole="Reg_entrada_salida" ToRole="Empleados" />
         </EntityType>
         <EntityType Name="Vac_con">

@@ -22,11 +22,18 @@ namespace Acciones_RR_HH
 
         }
 
-        private void entradasSalidasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gestionarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Reg_Entr_Sal fRegEntSal = new Reg_Entr_Sal();
             fRegEntSal.MdiParent = this;
             fRegEntSal.Show();
+        }
+
+        private void marcarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Reg_Entr_Sal_Ingr fRegEmpEntSal = new Reg_Entr_Sal_Ingr();
+            fRegEmpEntSal.MdiParent = this;
+            fRegEmpEntSal.Show();
         }   
     }
 }

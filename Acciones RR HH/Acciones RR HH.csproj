@@ -72,6 +72,12 @@
     <Compile Include="Presentacion\Reg_Entr_Sal.Designer.cs">
       <DependentUpon>Reg_Entr_Sal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Reg_Entr_Sal_Ingr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Reg_Entr_Sal_Ingr.Designer.cs">
+      <DependentUpon>Reg_Entr_Sal_Ingr.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Presentacion\MDI.resx">
@@ -82,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Reg_Entr_Sal.resx">
       <DependentUpon>Reg_Entr_Sal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Reg_Entr_Sal_Ingr.resx">
+      <DependentUpon>Reg_Entr_Sal_Ingr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

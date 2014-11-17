@@ -875,13 +875,11 @@ namespace Acciones_RR_HH.Datos
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="iDEmpleado">Initial value of the IDEmpleado property.</param>
-        /// <param name="salida">Initial value of the Salida property.</param>
-        public static Reg_entrada_salida CreateReg_entrada_salida(global::System.Int32 id, global::System.String iDEmpleado, global::System.DateTime salida)
+        public static Reg_entrada_salida CreateReg_entrada_salida(global::System.Int32 id, global::System.String iDEmpleado)
         {
             Reg_entrada_salida reg_entrada_salida = new Reg_entrada_salida();
             reg_entrada_salida.id = id;
             reg_entrada_salida.IDEmpleado = iDEmpleado;
-            reg_entrada_salida.Salida = salida;
             return reg_entrada_salida;
         }
 
@@ -967,9 +965,9 @@ namespace Acciones_RR_HH.Datos
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime Salida
+        public Nullable<global::System.DateTime> Salida
         {
             get
             {
@@ -984,8 +982,8 @@ namespace Acciones_RR_HH.Datos
                 OnSalidaChanged();
             }
         }
-        private global::System.DateTime _Salida;
-        partial void OnSalidaChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _Salida;
+        partial void OnSalidaChanging(Nullable<global::System.DateTime> value);
         partial void OnSalidaChanged();
 
         #endregion

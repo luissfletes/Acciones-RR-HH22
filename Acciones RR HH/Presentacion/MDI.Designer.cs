@@ -33,6 +33,8 @@
             this.controlDePagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entradasSalidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.marcarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,10 +72,26 @@
             // 
             // entradasSalidasToolStripMenuItem
             // 
+            this.entradasSalidasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.marcarToolStripMenuItem,
+            this.gestionarToolStripMenuItem});
             this.entradasSalidasToolStripMenuItem.Name = "entradasSalidasToolStripMenuItem";
             this.entradasSalidasToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
             this.entradasSalidasToolStripMenuItem.Text = "Entradas-Salidas";
-            this.entradasSalidasToolStripMenuItem.Click += new System.EventHandler(this.entradasSalidasToolStripMenuItem_Click);
+            // 
+            // marcarToolStripMenuItem
+            // 
+            this.marcarToolStripMenuItem.Name = "marcarToolStripMenuItem";
+            this.marcarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.marcarToolStripMenuItem.Text = "Marcar";
+            this.marcarToolStripMenuItem.Click += new System.EventHandler(this.marcarToolStripMenuItem_Click);
+            // 
+            // gestionarToolStripMenuItem
+            // 
+            this.gestionarToolStripMenuItem.Name = "gestionarToolStripMenuItem";
+            this.gestionarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gestionarToolStripMenuItem.Text = "Gestionar";
+            this.gestionarToolStripMenuItem.Click += new System.EventHandler(this.gestionarToolStripMenuItem_Click);
             // 
             // MDI
             // 
@@ -100,6 +118,8 @@
         private System.Windows.Forms.ToolStripMenuItem controlDePagosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem entradasSalidasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem marcarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestionarToolStripMenuItem;
     }
 }
 
